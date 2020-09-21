@@ -1,7 +1,8 @@
 body {
     line-height: 1.5;
     font-family: Helvetica;
-    font-size: 19px;
+    /* Made font size larger for stretch challenge */
+    font-size: 19px; 
     margin: 0;
 }
 
@@ -9,6 +10,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    /* Changed background color of page header for stretch challenge */
     background-color: lightcyan;
 }
 
