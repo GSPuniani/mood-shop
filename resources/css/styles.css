@@ -29,12 +29,13 @@ body {
 
 .items {
     display: grid;
-    grid-template-columns: repeat(4, 120px);
-    grid-column-gap: 200px;
-    /* Instructions: margin-left: 100px instead of margin-right */
-    margin-right: 100px;
-    margin-top: 50px;
-}
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    margin-left: 1px;
+    /* margin-right: 80px; */
+    /* margin-top: 50px; */
+    width: 100%;
+    }
 
 .item {
     border: solid 1px;
