@@ -1,6 +1,11 @@
 import data from "./data.js"
 const itemsContainer = document.getElementById("items")
 
+const itemList = document.getElementById("item-list")
+// itemList.innerHTML = '<li>Hello World</li>'
+const cartQty = document.getElementById("cart-qty")
+const cartTotal = document.getElementById("cart-total")
+
 
 // The length of our data determines how many times this loop goes around
 for (let i = 0; i < data.length; i++) {
@@ -64,13 +69,17 @@ function addItem(name, price) {
 // --------------------------------------------------------------------------
 // Display all items with prices and quantities in the cart
 function showItems() {
-    console.log(`You have ${getQty()} items in your cart.`)
+    cartQty.innerHTML = `You have ${getQty()} items in your cart.`
 
-    console.log(`The total price of all items in the cart is $${getTotal()}.`)
-
+    let itemStr = ''
     for (let i = 0; i < cart.length; i += 1) {
-        console.log(`${cart[i].name} $${cart[i].price} x ${cart[i].qty}`)
+        // Assign key names to intermediate variables
+        const {name, price, qty} = cart[i]
+        itemStr += `<li>${name} $${price} x ${qty} = $${price * qty}</li>`
     }
+    itemList.innerHTML = itemStr
+
+    cartTotal.innerHTML = `The total price of all items in the cart is $${getTotal()}.`
 }
 
 // --------------------------------------------------------------------------
@@ -122,3 +131,5 @@ removeItem('Apple', 1)
 removeItem('Frisbee')
 
 showItems()
+
+console.log(itemList)
