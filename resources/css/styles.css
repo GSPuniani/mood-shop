@@ -1,3 +1,8 @@
+h4 {
+    font-size: larger;
+    padding-left: 1mm;
+}
+
 body {
     line-height: 1.5;
     font-family: Helvetica;
@@ -10,8 +15,8 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* Changed background color of page header for stretch challenge */
-    background-color: lightcyan;
+    /* Stretch challenge: change background color of page header */
+    background-color: lightskyblue;
 }
 
 .page-header ul {
@@ -47,4 +52,20 @@ body {
 .item button {
     background-color: gold;
     padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    box-shadow: none;
+    font-size: medium;
 }
+
+/* Stretch challenge: customize the footer */
+footer {
+    background-color: wheat;
+    border-top: solid 1px;
+}
+
+/* Stretch challenge: remove the dots on the list of items */
+footer > ul {
+    list-style: none;
+}
+
+ 

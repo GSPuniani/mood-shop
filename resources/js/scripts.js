@@ -119,7 +119,7 @@ function showItems() {
     for (let i = 0; i < cart.length; i += 1) {
         // Assign key names to intermediate variables
         const {name, price, qty} = cart[i]
-        itemStr += `<li>${name} $${price} x ${qty} = $${(price * qty).toFixed(2)} 
+        itemStr += `<li>${name}: $${price} x ${qty} = $${(price * qty).toFixed(2)} 
         <button class="remove" data-name="${name}">Remove</button> 
         <button class="add-one" data-name="${name}"> + </button>
         <button class="remove-one" data-name="${name}"> - </button>  
@@ -128,7 +128,7 @@ function showItems() {
     }
     itemList.innerHTML = itemStr
 
-    cartTotal.innerHTML = `The total price of all items in the cart is $${getTotal()}.`
+    cartTotal.innerHTML = `The total price of all items in your cart is $${getTotal()}.`
 }
 
 // --------------------------------------------------------------------------
@@ -182,6 +182,9 @@ function updateCart(name, qty) {
         }
     }
 }
+
+// Call showItems() at the end of the page so that the empty cart is shown before any items are added
+showItems()
 
 // --------------------------------------------------------------------------
 // addItem('Apple', 0.99)
