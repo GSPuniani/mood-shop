@@ -60,11 +60,42 @@ all_items_button.forEach(elt => elt.addEventListener("click", () => {
 const cart = []
 
 // --------------------------------------------------------------------------
+// Handle Change events on input ("update" class)
+itemList.onchange = function(e) {
+    if (e.target && e.target.classList.contains("update")) {
+        // console.log(e.target)
+        const name = e.target.dataset.name //data-name
+        const qty = parseInt(e.target.value)
+        updateCart(name, qty)
+    }
+}
+
+// --------------------------------------------------------------------------
+// Handle clicks on list
+itemList.onclick = function(e) {
+    // console.log("Clicked list")
+    // console.log(e.target)
+    if (e.target && e.target.classList.contains("remove")) {
+        const name = e.target.dataset.name //data-name
+        removeItem(name)
+    }
+    else if (e.target && e.target.classList.contains("add-one")) {
+        const name = e.target.dataset.name //data-name
+        addItem(name)
+    }
+    else if (e.target && e.target.classList.contains("remove-one")) {
+        const name = e.target.dataset.name //data-name
+        removeItem(name, 1)
+    }
+}
+
+// --------------------------------------------------------------------------
 // Add an item with a name and a price
 function addItem(name, price) {
     for (let i = 0; i < cart.length; i += 1) {
         if (cart[i].name === name) {
             cart[i].qty += 1
+            showItems()
             return
         }
     }
@@ -75,13 +106,25 @@ function addItem(name, price) {
 // --------------------------------------------------------------------------
 // Display all items with prices and quantities in the cart
 function showItems() {
-    cartQty.innerHTML = `You have ${getQty()} items in your cart.`
+    // Provide a special case for when cart has only 1 item so that message is grammatically correct
+    if (getQty() === 1) {
+        cartQty.innerHTML = `You have 1 item in your cart.`
+    }
+    else {
+        cartQty.innerHTML = `You have ${getQty()} items in your cart.`
+    }
+    
 
     let itemStr = ''
     for (let i = 0; i < cart.length; i += 1) {
         // Assign key names to intermediate variables
         const {name, price, qty} = cart[i]
-        itemStr += `<li>${name} $${price} x ${qty} = $${price * qty}</li>`
+        itemStr += `<li>${name} $${price} x ${qty} = $${(price * qty).toFixed(2)} 
+        <button class="remove" data-name="${name}">Remove</button> 
+        <button class="add-one" data-name="${name}"> + </button>
+        <button class="remove-one" data-name="${name}"> - </button>  
+        <input class="update" type="number" min="0" data-name="${name}">
+        </li>`
     }
     itemList.innerHTML = itemStr
 
@@ -108,6 +151,8 @@ function getTotal() {
     return total.toFixed(2)
 }
 
+// --------------------------------------------------------------------------
+// Remove one or more items from the cart
 function removeItem(name, qty = 0) {
     for (let i = 0; i < cart.length; i += 1) {
         if (cart[i].name === name) {
@@ -117,6 +162,22 @@ function removeItem(name, qty = 0) {
             if (cart[i].qty < 1 || qty === 0) {
                 cart.splice(i, 1)
             }
+            showItems()
+            return
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// Update the cart quantities based on the quantity specified in the input field
+function updateCart(name, qty) {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty < 1) {
+                removeItem(name)
+            }
+            cart[i].qty = qty
+            showItems()
             return
         }
     }
